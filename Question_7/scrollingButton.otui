@@ -1,0 +1,13 @@
+ScrollingButtonWindow < MainWindow
+  !text: tr('Scrolling Button')
+  size: 280 250
+  @onEscape: self:hide()
+
+  Button
+    id: jumpButton
+    !text: tr('Jump!')
+    anchors.top: parent.top
+    anchors.right: parent.right
+    margin-right: 0
+    width: 60
+    &onClick: resetButtonPosition

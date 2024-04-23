@@ -1,0 +1,9 @@
+Module
+  name: game_scrollingbutton
+  description: scrolling button
+  author: anthony drapeau
+  website: 
+  scripts: [ scrollingButton ]
+  sandboxed: true
+  @onLoad: init()
+  @onUnload: terminate()

@@ -27,6 +27,7 @@ void Game::addItemToPlayer(const std::string& recipient, uint16_t itemId)
 
 // Modified Code
 
+// Adds an item to the player with ID itemID
 void Game::addItemToPlayer(const std::string& recipient, uint16_t itemId)
 {
     // Flag to check if a new player object was created

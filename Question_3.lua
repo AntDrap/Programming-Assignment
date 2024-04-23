@@ -18,6 +18,8 @@ end
 -- The goal of function is to remove a member (specified by memberId) from 
 -- a player's (specified by playerID) party
 -- name changed "from do_sth_with_PlayerParty" to "removeMemberFromPlayerParty"
+
+-- Removes a member from a player's party
 function removeMemberFromPlayerParty(playerId, memberName)
     -- The 'membername' variable did not match the notation of the other variables provided
     -- so it was changed to follow a camel case naming style
@@ -48,6 +50,7 @@ function removeMemberFromPlayerParty(playerId, memberName)
     -- I changed it to instead save the member within a variable before the loop  
     local targetMember = Player(memberName)
 
+    -- iterates through each member to find the specified member and remove them
     for k,v in pairs(party:getMembers()) do
         if v == targetMember then
             party:removeMember(targetMember)
