@@ -1,17 +1,29 @@
+-- Defines the hotkey to open the window
 local HOTKEY = 'Ctrl+A'
 
+-- Degines the variable for the window
 local scrollingButtonWindow = nil
 
+-- Defines the moving button
 local jumpButton = nil
+-- Defines and initializes the button's position
 local jumpButtonPosition = 0
 
+-- Defines the time between button movements
 local jumpButtonMoveTime = 50
+-- Defines the amount of movement
 local jumpButtonMoveDistance = 5
 
+-- Defines the max width and height of the window
 local jumpButtonMaxWidth = 0
 local jumpButtonMaxHeight = 0
 
+-- Defines the vertical margin for the window
+-- so the button does not overlap with the top
 local verticalMargin = 70
+
+-- Defines whether or not the movement behavior is running
+local isRunning = false;
 
 -- Initializes the window
 function init()
@@ -37,6 +49,7 @@ function terminate()
   -- unbinds the hotkey
   g_keyboard.unbindKeyDown(HOTKEY)
   -- destroys the window
+  isRunning = false
   scrollingButtonWindow:destroy()
 end
 
@@ -48,7 +61,10 @@ function show()
     -- resets the button position
     resetButtonPosition()
     -- schedules the initial button movement event
-    scheduleEvent(incrementButtonPosition, jumpButtonMoveTime, nil)
+
+    if (not isRunning) then
+      scheduleEvent(incrementButtonPosition, jumpButtonMoveTime, nil)
+    end
   end
 end
 
@@ -83,11 +99,15 @@ end
 -- Recursive function that increments the button position as long as the window is open
 function incrementButtonPosition()
   -- returns if the window is not visible
-  if not scrollingButtonWindow:isVisible() then return end
+  if not scrollingButtonWindow:isVisible() then 
+    isRunning = false
+    return 
+  end
 
   -- increases the button's position
   setButtonPosition(jumpButtonPosition + jumpButtonMoveDistance)
 
   -- schedules an event that calls this function
   scheduleEvent(incrementButtonPosition, jumpButtonMoveTime)
+  isRunning = true
 end
